@@ -81,7 +81,8 @@ fun DetailScreen(id: Int?) {
                     Spacer(modifier = Modifier.height(16.dp))
                 }
                 Row(
-                    verticalAlignment = Alignment.Bottom, modifier = Modifier
+                    verticalAlignment = Alignment.Bottom,
+                    modifier = Modifier
                         .fillMaxHeight()
                         .padding(16.dp)
                 ) {

@@ -61,9 +61,11 @@ class MainActivity : AppCompatActivity() {
 
             composable(
                 route = "${Navigation.CAT_DETAIL_SCREEN}/{$CAT_ID}",
-                arguments = listOf(navArgument(CAT_ID) {
-                    type = NavType.StringType
-                })
+                arguments = listOf(
+                    navArgument(CAT_ID) {
+                        type = NavType.StringType
+                    }
+                )
             ) {
                 DetailScreen(
                     id = it.arguments?.getString(CAT_ID)?.toInt()
@@ -72,5 +74,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-

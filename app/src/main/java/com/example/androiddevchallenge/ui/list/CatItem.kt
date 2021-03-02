@@ -48,9 +48,11 @@ fun CatItem(cat: Cat, onSelected: (String) -> Unit) {
         modifier = Modifier
             .background(MaterialTheme.colors.background)
             .fillMaxWidth()
-            .clickable(onClick = {
-                onSelected(cat.id.toString())
-            })
+            .clickable(
+                onClick = {
+                    onSelected(cat.id.toString())
+                }
+            )
             .clip(RoundedCornerShape(4.dp))
     ) {
         Row(
@@ -92,13 +94,17 @@ fun CatName(name: String) {
 @Composable
 fun CatItemPreviewDarkThemed() {
     MyTheme(darkTheme = true) {
-        CatItem(cat = Cat(
-            image = R.drawable.black_cat, name = "Zezinho 12312 3212 123 132 123 123 123 1",
-            description = "",
-            id = 0
-        ), onSelected = {
-            /*TODO*/
-        })
+        CatItem(
+            cat = Cat(
+                image = R.drawable.black_cat,
+                name = "Zezinho 12312 3212 123 132 123 123 123 1",
+                description = "",
+                id = 0
+            ),
+            onSelected = {
+                /*TODO*/
+            }
+        )
     }
 }
 
@@ -106,12 +112,16 @@ fun CatItemPreviewDarkThemed() {
 @Composable
 fun CatItemPreview() {
     MyTheme {
-        CatItem(cat = Cat(
-            id = 0,
-            image = R.drawable.black_cat, name = "Zezinho",
-            description = ""//
-        ), onSelected = {
-            /*TODO*/
-        })
+        CatItem(
+            cat = Cat(
+                id = 0,
+                image = R.drawable.black_cat,
+                name = "Zezinho",
+                description = ""
+            ),
+            onSelected = {
+                /*TODO*/
+            }
+        )
     }
 }
