@@ -18,44 +18,58 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.remember
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.navigation.Actions
+import com.example.androiddevchallenge.navigation.Navigation
+import com.example.androiddevchallenge.navigation.Navigation.CatsDetailArgs.CAT_ID
+import com.example.androiddevchallenge.ui.detail.DetailScreen
+import com.example.androiddevchallenge.ui.list.ListScreen
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
+            val actions = remember(navController) { Actions(navController) }
             MyTheme {
-                MyApp()
+                myNavHost(navController = navController, actions = actions)
+            }
+        }
+    }
+
+    @Composable
+    fun myNavHost(
+        navController: NavHostController,
+        actions: Actions
+    ) {
+        NavHost(
+            navController = navController,
+            startDestination = Navigation.CATS_SCREEN
+        ) {
+            composable(route = Navigation.CATS_SCREEN) {
+                ListScreen(actions.openDetail)
+            }
+
+            composable(
+                route = "${Navigation.CAT_DETAIL_SCREEN}/{$CAT_ID}",
+                arguments = listOf(navArgument(CAT_ID) {
+                    type = NavType.StringType
+                })
+            ) {
+                DetailScreen(
+                    id = it.arguments?.getString(CAT_ID)?.toInt()
+                )
             }
         }
     }
 }
 
-// Start building your app here!
-@Composable
-fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
-    }
-}
 
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreview() {
-    MyTheme {
-        MyApp()
-    }
-}
-
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        MyApp()
-    }
-}
